@@ -1,0 +1,185 @@
+.pageBuy {
+  font-size: 5rem;
+  margin: 9rem auto 0;
+  width: 86%;
+  height: auto;
+}
+.page-left {
+  width: 69%;
+}
+.page-left > h1 {
+  font-size: 2.6rem;
+  padding: 2rem 0;
+}
+.page-left > p {
+  font-size: 1.5rem;
+  white-space: pre-wrap;
+}
+
+.topPage {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
+}
+.topPage > a {
+  text-decoration: none;
+  color: #2a6a9a;
+}
+.topPage > svg {
+  margin: 0 0.5rem;
+}
+/* css IMAGE */
+.imgTop {
+  /* width:80rem ;
+    height:50rem; */
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+.buyImg {
+  height: 50rem;
+  width: 90rem;
+}
+.buyImg > img {
+  width: 100%;
+  height: inherit;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.imgTop > svg {
+  font-size: 5rem;
+  color: white;
+  cursor: pointer;
+}
+.imgTop > svg:hover {
+  opacity: 0.7;
+}
+
+.btnNext-img {
+  position: absolute;
+  top: 50%;
+}
+.btnPrev-img {
+  position: absolute;
+  left: 94%;
+  top: 50%;
+}
+
+.address-buy {
+  display: flex;
+  align-items: center;
+}
+.address-buy > p {
+  font-size: 1.4rem;
+}
+/* room detail */
+.room-page {
+  color: rgba(0, 0, 0, 0.766);
+  width: 100%;
+  height: 8rem;
+  background-color: #f4f5f6;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.detail-rooms {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.detail-rooms > p {
+  font-size: 1.4rem;
+  padding-top: 1rem;
+}
+
+.roomPage-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomPage-item > p {
+  font-size: 1.4rem;
+  margin-left: 0.5rem;
+}
+.roomPage-item > svg {
+  font-size: 2rem;
+}
+.page-description {
+  line-height: 3rem;
+}
+/* introduce */
+.addressPage,
+.introduce,
+.detailPage,
+.featuredPage {
+  background-color: #f4f5f6;
+  margin-top: 3rem;
+  padding: 2rem;
+}
+.addressPage > h1,
+.introduce > h1,
+.detailPage > h1,
+.featuredPage > h1 {
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+.addressPage,
+.introduce > p,
+.detailChild > p,
+.featuredPage > p {
+  font-size: 1.5rem;
+  white-space: pre-wrap;
+  color: rgba(0, 0, 0, 0.766);
+}
+/* addressPage */
+.pageAddress {
+  display: flex;
+  justify-content: space-between;
+}
+.addressChild {
+  flex: 30%;
+}
+/* detail */
+.pageDetail {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.detailChild {
+  flex: 30%;
+  padding-bottom: 1rem;
+}
+/* feature */
+.featuredChild {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pageFeature {
+  display: flex;
+  flex: 30%;
+  margin: 1rem 0;
+}
+.pageFeature > p {
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.766);
+  padding-left: 0.5rem;
+}
+.pageFeature > svg {
+  color: blue;
+  font-size: 1.8rem;
+}
+.btnPage{
+  display: flex;
+  justify-content:center;
+  height:8rem;
+  margin-top: 2rem;
+}
+
+ .btn-pageBuy{
+  width:15rem;
+  height:6rem;
+}

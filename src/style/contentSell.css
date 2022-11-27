@@ -1,0 +1,196 @@
+.content-sell{
+    height: auto;
+    width: 100%;
+    background-color: white;
+    padding : 0 4rem;
+}
+
+/* contentSell */
+
+.content-sell >h1{
+    padding:2rem 0;
+}
+
+.content-sell >label{
+    font-size:1.5rem;
+    color:#816969;
+}
+.content-sell >input{
+    width:100%;
+    height:5rem;
+    background-color:#F7F7F7;
+    border-radius: 1rem;
+    border:none;
+    outline: none;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+.content-sell >textarea{
+    background-color:#F7F7F7;
+    border-radius:1rem;
+    margin: 2rem 0;
+    border: none;
+    outline: none;
+    padding-left: 1.5rem;
+}
+
+.select-flex{
+    display: flex;
+    justify-content:space-between;
+}
+
+.select-flex , .content-sell >label{
+    font-size:1.5rem;
+    color:#816969;
+}
+.flex{
+    width: 45%;
+}
+.sell-btn{
+    width: 100%;
+    height:5rem;
+    background-color:#F7F7F7;
+    border-radius: 1rem;
+    border:none;
+    outline: none;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+.flex >select{
+    width: 100%;
+    height:5rem;
+    background-color:#F7F7F7;
+    border-radius: 1rem;
+    border:none;
+    outline: none;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.btnContainer{
+    width: 30rem;
+    height: 10rem;
+    margin-top: 3rem ;
+    display:flex;
+    justify-content:space-between;
+}
+.btnContainer .btn{
+    height:5rem;
+    width:14rem;
+    cursor: pointer;
+    border-radius: 0.5rem; 
+    background-color:#377ef9;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2rem;
+    color: #fff;
+    padding-left:4.7rem;
+}
+
+.btn-Image{
+    width:100%;
+    height:15rem;
+    background-color:#F7F7F7;
+    border-radius:1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+}
+.btn-Image >svg{
+    height:5rem;
+    width:5rem;
+    color:#A5C2DE;
+}
+
+/* location*/
+
+.btn-Container{
+    width: 30rem;
+    height: auto;
+    display:flex;
+    justify-content:space-between;
+    padding: 4rem 0;
+}
+.btn-Container .btn{
+    height:5rem;
+    width:14rem;
+    cursor: pointer;
+    border-radius: 0.5rem; 
+    background-color:#377ef9;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2rem;
+    color: #fff;
+    padding-left:4.7rem;
+}
+.images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height:auto;
+}
+.picture {
+    height:10rem;
+    flex:25%;
+    position: relative;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+.picture img{
+    height:inherit;
+    width:inherit;
+}
+.picture p{
+    display:inline-block;
+}
+.picture button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: lightcoral;
+}
+.upload-btn{
+    height:5rem;
+    width:14rem;
+    cursor: pointer;
+    background-color:#377ef9;
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    margin-left: 0;
+}
+.error{
+    font-size: 1rem;
+}
+
+  
+
+/* utilities */
+.form{
+    width:100%;
+    height:7rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+.utility-name{
+    font-size:1.5rem;
+    font-weight:bold;
+    padding-bottom: 1rem;
+}
+.list-form{
+    width:33%
+}
+.list-form >input{
+    width:1.7rem;
+    height:1.7rem;
+    vertical-align: top;
+    margin-right: 5px;
+}
+.list-form >label{
+    font-size:1.3rem;
+}

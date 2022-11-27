@@ -1,0 +1,25 @@
+.sellIndicator {
+  width: 100%;
+  height: 6rem;
+}
+.connect {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.connect >a {
+  flex: 25%;
+  height: 100%;
+  text-decoration: none;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+.connect >a:hover {
+  color: #377ef9;
+}
+.active {
+  background-color: #fff;
+  color: #377ef9;
+}

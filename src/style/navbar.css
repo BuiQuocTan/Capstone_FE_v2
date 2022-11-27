@@ -1,0 +1,98 @@
+.navbar {
+  width: 100%;
+  height: 90px;
+  border-bottom:1px solid rgba(0, 0, 0, 0.205);
+  position:fixed;
+  background-color:white;
+  top: 0;
+  z-index: 1;
+}
+
+.menu {
+  height: inherit;
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar a >img {
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.menu-list {
+  display: flex;
+  align-items: center;
+}
+
+.menu-list >a {
+  color: var(--text-color);
+  padding: 10px;
+  text-decoration: none;
+  margin: 0 2rem;
+  font-size: 2rem;
+  border-radius: 5px;
+}
+.menu-list >a:hover {
+  color: rgb(0, 106, 255);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  margin-left: 2rem;
+  cursor:pointer;
+}
+
+.btn-bnb {
+  height: 4rem;
+  width: 15rem;
+  color: #28146f;
+  border-radius: 10rem;
+  padding: 10px;
+  font-weight: 500;
+  background-color: #eff4f5;
+  border: 1px solid #eff4f5;
+}
+
+.btn-wallet {
+  height: 4rem;
+  width: 15rem;
+  border-radius: 10rem;
+  border: 1px solid #1fc7d4;
+  background-color: #1fc7d4;
+  color: white;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+.btn .btn-logout {
+  height: 4rem;
+  width: 10rem;
+  border-radius: 5rem;
+  border: 1px solid transparent;
+}
+.btn .btn-logout:hover{
+  background-color: #1fc7d4;
+  color: #fff;
+}
+
+.login{
+  font-size:2rem;
+  width:10rem;
+  height: 3.5rem;
+  margin-top:2.8rem;
+  border-radius: 5rem;
+  border: 1px solid rgba(0, 0, 0, 0.311)
+}
+.login:hover{
+  background-color: #1fc7d4;
+  color: #fff;
+}

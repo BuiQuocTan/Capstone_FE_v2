@@ -1,0 +1,361 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "uri_",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price_",
+				"type": "uint256"
+			}
+		],
+		"name": "addLand",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "buyLand",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "to_date",
+				"type": "uint256"
+			}
+		],
+		"name": "delayRent",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			}
+		],
+		"name": "listRent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "start_date",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "end_date",
+				"type": "uint256"
+			}
+		],
+		"name": "rentLand",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "stopRent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "withdrawReward",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "calcReward",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "dead",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getLandInfo",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getLandList",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "getLandListByUser",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "getRentInfo",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRentList",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "getRentListByUser",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "lands",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "uri",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "max_holder",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "max_amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "remain",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "listed_rent",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "rented",
+				"type": "bool"
+			},
+			{
+				"internalType": "address",
+				"name": "renter",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rent_price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rent_start_date",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rent_end_date",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
