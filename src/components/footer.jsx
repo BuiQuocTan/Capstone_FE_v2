@@ -31,11 +31,12 @@ function footer() {
           </div>
         </div>
         <div className="footer-home">
+        <HouseSidingIcon />
           <div style={{
             display: 'flex',
             flexDirection: 'column'
           }}>
-            <span>Follow us</span>
+            <h1>REB <span>Follow us</span></h1>
             <div style={{
               display: 'flex',
               flexDirection: 'row'
@@ -47,6 +48,7 @@ function footer() {
           </div>
           <div>
             <p>&copy; 2022-2023 REB</p>
+            <HomeIcon />
           </div>
         </div>
       </div>

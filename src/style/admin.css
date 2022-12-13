@@ -1,0 +1,144 @@
+.admin {
+  font-size: 5rem;
+  width: 86%;
+  margin: 9rem auto 0;
+  z-index: 0;
+  display: flex;
+}
+.admin-left {
+  flex: 20%;
+  background-color: #0075ba;
+  height: 70rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.listAdmin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 20rem;
+}
+.listAdmin > p {
+  font-size: 2.4rem;
+  cursor: pointer;
+  background-color: #0075ba;
+  color: #fff;
+}
+.listAdmin > .active {
+  border-bottom: 0.3rem solid olivedrab;
+}
+.titleAdmin {
+  display: flex;
+  padding: 3rem 6rem;
+}
+.titleAdmin > svg {
+  height: 4rem;
+  width: 4rem;
+}
+.titleAdmin > p {
+  font-size: 3rem;
+  margin-left: 1rem;
+}
+.admin-right {
+  flex: 80%;
+  background-color: #dbe3e6;
+}
+.contentAdmin {
+  width: 95%;
+  height: 60rem;
+  margin: 10rem auto 0;
+  background-color: #fff;
+}
+
+/* admin home */
+.searchAdmin {
+  width: 40%;
+  position: relative;
+}
+.searchAdmin > input {
+  height: 4rem;
+  width: 30rem;
+  margin: 0 1rem;
+  font-size: 2rem;
+}
+.searchAdmin > input:focus-visible {
+  outline: none;
+}
+.searchAdmin > svg {
+  position: absolute;
+  right: 24%;
+  bottom: 6%;
+  height: 3rem;
+  width: 3rem;
+  color: rgba(0, 0, 0, 0.433);
+}
+.info-homeAdmin {
+  width: 98%;
+  margin: 2rem auto 0;
+  height: 45rem;
+}
+.list-homeAdmin {
+  border-bottom: solid 1px black;
+}
+
+.info-homeAdmin > ul {
+  list-style: none;
+  display: flex;
+  font-size: 2rem;
+  align-items: center;
+  justify-content: space-around;
+}
+.list-homeAdmin > li {
+  border-right: 1px solid black;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+
+.list-homeAdmin > li:first-child {
+  flex: 5%;
+}
+.list-homeAdmin > li:nth-child(2) {
+  flex: 30%;
+}
+.list-homeAdmin > li:nth-child(3) {
+  flex: 15%;
+}
+.list-homeAdmin > li:nth-child(4) {
+  flex: 33%;
+}
+.list-homeAdmin > li:nth-child(5) {
+  flex: 15%;
+}
+.list-homeAdmin > li:last-child {
+  flex: 7%;
+  border: none;
+}
+
+/* pagination admin */
+.paginationAdmin > .paginationBtn {
+  height: 5rem;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: -2rem;
+}
+.paginationAdmin > .paginationBtn a {
+  font-size: 1.2rem;
+  margin: 0 0.8rem;
+  border-radius: 5px;
+  border: 1px solid #1fc7d4;
+  color: #2b2eff;
+  cursor: pointer;
+}
+.paginationAdmin > .paginationBtn a:hover {
+  color: white;
+  background-color: #1fc7d4;
+}
+.paginationAdmin > .paginationActive a {
+  color: white;
+  background-color: #1fc7d4;
+}

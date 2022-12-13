@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useMemo } from 'react'
 import '../style/buy.css'
 import Map from '../components/Map'
 import HomeItem from '../components/HomeItem'
@@ -10,24 +10,6 @@ function Buy() {
   const [currentPage,setCurrentPage] = useState(0)
   const [postPerPage] = useState(4)
 
-  const deletePost = (id) =>{
-    fetch(`'http://localhost:5000/api/home'${id}`, {
-      method: 'DELETE',
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-        "ngrok-skip-browser-warning": "69420",
-      }),
-    }).then((res) =>{
-      res.json().then((resp) =>{
-        alert("delete successful")
-      })
-      loadData();
-    })
-    .catch(err => {
-      console.error(err)
-    });
-  }
   const loadData = async () => {
     fetch('http://localhost:5000/api/home', {
       method: "get",
@@ -42,7 +24,6 @@ function Buy() {
       })
       .then((receivedData) => setData(receivedData))
   }
-  console.log(data)
   useEffect(() => {
     loadData()
   }, [])
@@ -56,39 +37,70 @@ function Buy() {
     setCurrentPage(selected);
   };
 
+  const [select, setSelect] = useState()
+
+  const filterBuy = () => {
+    if (!select) {
+      return currentData
+    } else if (select === 'Rent' || select === 'Buy') {
+      return currentData.filter((item) => item.information.selectBuy === select)
+    } else if (select === 'Home' || select === 'Land') {
+      return currentData.filter((item) => item.information.selectHome === select)
+    } else if (
+      select === 'Hải Châu' ||
+      select === 'Sơn Trà' ||
+      select === 'Cẩm Lệ' ||
+      select === 'Ngũ Hành Sơn' ||
+      select === 'Thanh Khê' ||
+      select === 'Liên Chiểu'
+    ) {
+      return currentData.filter((item) => item.street.wards === select)
+    } else if (select === 'Đà Nẵng' || select === 'Hồ Chí Minh' || select === 'Hà Nội' || select === 'Huế') {
+      return currentData.filter((item) => item.street.city === select)
+    }
+  }
+
+  const filterBuyList = useMemo(filterBuy, [select, currentData])
+
+  const updateSelect = (e) => {
+    setSelect(e.target.value)
+  }
 
   return (
     <div className="buy-content">
       <div className="searchBuy">
         <div className="selectBuy">
-          <select name="Type">
-            <option value="Type">Type</option>
+          <select name="Type" onChange={(e) => updateSelect(e)}>
+            <option value="">Type</option>
             <option value="Rent">Rent</option>
             <option value="Buy">Buy</option>
           </select>
         </div>
         <div className="selectBuy">
-          <select name="Category">
-            <option value="Category">Category</option>
+          <select name="Category" onChange={(e) => updateSelect(e)}>
+            <option value="">Category</option>
             <option value="Home">Home</option>
             <option value="Land">Land</option>
           </select>
         </div>
         <div className="selectBuy">
-          <select name="Wards">
-            <option value="Wards">Wards</option>
-            <option value="Hai Chau">Hai Chau</option>
-            <option value="Son Tra">Son Tra</option>
-            <option value="Cam Le">Cam Le</option>
-            <option value="Ngu Hanh Son">Ngu Hanh Son</option>
-            <option value="Thanh Khe">Thanh Khe</option>
-            <option value="Lien Chieu">Lien Chieu</option>
+          <select name="Wards"onChange={(e) => updateSelect(e)}>
+          <option value="">Wards</option>
+            <option value="Hải Châu">Hải Châu</option>
+            <option value="Sơn Trà">Sơn Trà</option>
+            <option value="Cẩm Lệ">Cẩm Lệ</option>
+            <option value="Ngũ Hành Sơn">Ngũ Hành Sơn</option>
+            <option value="Thanh Khê">Thanh Khê</option>
+            <option value="Liên Chiểu">Liên Chiểu</option>
           </select>
         </div>
         <div className="selectBuy">
-          <select name="City">
-            <option value="City">City</option>
-            <option value="Da Nang">Da Nang</option>
+          <select name="City" onChange={(e) => updateSelect(e)}>
+          <option value="">City</option>
+            <option value="Đà Nẵng">Đà Nẵng</option>
+            <option value="Hà Nội">Hà Nội</option>
+            <option value="Huế">Huế</option>
+            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
           </select>
         </div>
       </div>
@@ -98,7 +110,7 @@ function Buy() {
         </div>
         <div className="buy-right">
           <div className="right-content">
-            {currentData.map((home,index) => {
+            {filterBuyList.map((home,index) => {
               return (
                 <HomeItem
                   key={index}
@@ -116,7 +128,6 @@ function Buy() {
                   image={home.detail.image[0]}
                   type={home.information.selectBuy}
                   path={home.information.path}
-                  deletePost={deletePost}
                 />
               )
             })}

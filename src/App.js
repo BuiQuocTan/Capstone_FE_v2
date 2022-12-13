@@ -15,6 +15,7 @@ import AgentFinder from './page/AgentFinder'
 import Contact from './page/Contact'
 import Footer from './components/footer'
 import ContentHome from './page/ContentHome'
+import Admin from './page/AdminPage'
 
 import WalletProvider from './provider/walletProvider'
 
@@ -55,13 +56,25 @@ function App() {
       <Router>
           {!user ? <NavbarSecond />: <Navbar />}
         <Routes>
-          {user?.email === 'ngocthuandn98@gmail.com' ? (<Fragment><Route path="/" element={<Buy />} />
-          </Fragment>):(<Fragment><Route path="/" element={<Home />} />
-          <Route path="/buy" element={<Buy />} />
-          <Route path="/sell/:type" element={<Sell />} />
-          <Route path="/agent" element={<AgentFinder />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/buy/:page" element={<ContentHome />} /></Fragment>) }
+        {user?.email === 'ngocthuandn98@gmail.com' ? (
+            <Fragment>
+              <Route path="/" element={<Admin />} />
+              <Route path="/buy" element={<Buy />} />
+              <Route path="/sell/:type" element={<Sell />} />
+              <Route path="/agent" element={<AgentFinder />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/buy/:page" element={<ContentHome />} />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Route path="/" element={<Home />} />
+              <Route path="/buy" element={<Buy />} />
+              <Route path="/sell/:type" element={<Sell />} />
+              <Route path="/agent" element={<AgentFinder />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/buy/:page" element={<ContentHome />} />
+            </Fragment>
+          )}
         </Routes>
         <Footer />
       </Router>

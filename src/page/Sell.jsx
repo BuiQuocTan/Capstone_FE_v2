@@ -31,7 +31,7 @@ function Sell() {
   })
   const [selectedImages, setSelectedImages] = useState([])
   const [checkbox, setCheckbox] = useState([])
-  const path = post.title.replace(/[., ]+/g, '-').toLowerCase()
+  const path2 = post.title.replace(/[., ]+/g, '-').toLowerCase()
   //onChange input
   const handleInput = (e) => {
     e.persist()
@@ -75,7 +75,7 @@ function Sell() {
         selectHome: post.selectHome,
         selectBuy: post.selectBuy,
         area: post.area,
-        path: path,
+        path: path2,
       },
       street: {
         address: post.address,
