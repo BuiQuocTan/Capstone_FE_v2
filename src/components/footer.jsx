@@ -31,25 +31,13 @@ function footer() {
           </div>
         </div>
         <div className="footer-home">
-        <HouseSidingIcon />
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <h1>REB <span>Follow us</span></h1>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'row'
-            }}>
-              <a href="https://www.facebook.com/ngocthuan.nguyen.54584" target="_blank" rel="noreferrer"><FacebookOutlinedIcon /></a>
-              <a href='https://www.instagram.com/tiger_unlucky/'target="_blank" rel="noreferrer"> <InstagramIcon /></a>
-              <a href='https://twitter.com/thun06350390' target="_blank" rel="noreferrer" ><TwitterIcon /></a>
-            </div>
-          </div>
-          <div>
-            <p>&copy; 2022-2023 REB</p>
-            <HomeIcon />
-          </div>
+          <HouseSidingIcon />
+          <h1>REB <span>Follow us</span></h1>
+          <a  href="https://www.facebook.com/ngocthuan.nguyen.54584" target="_blank" rel="noreferrer"><FacebookOutlinedIcon /></a>
+          <a href='https://www.instagram.com/tiger_unlucky/'target="_blank" rel="noreferrer"> <InstagramIcon /></a>
+          <a   href='https://twitter.com/thun06350390' target="_blank" rel="noreferrer" ><TwitterIcon /></a>
+          <p>&copy; 2022-2023 REB</p>
+          <HomeIcon />
         </div>
       </div>
   )
