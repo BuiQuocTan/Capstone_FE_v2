@@ -1,66 +1,86 @@
 import { useEffect, useState } from 'react'
 import '../style/buy.css'
+import { useSelector } from 'react-redux'
+import { selectWallet } from '../feature/walletSlice'
 import Map from '../components/Map'
 import HomeItem from '../components/HomeItem'
 import Paginate from 'react-paginate'
-
+import { getList, fetchDataFromDatabase } from '../utils'
 
 function Buy() {
+  const wallet = useSelector(selectWallet)
   const [data, setData] = useState([])
-  const [currentPage,setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
   const [postPerPage] = useState(4)
 
-  const deletePost = (id) =>{
-    fetch(`'http://localhost:5000/api/home'${id}`, {
-      method: 'DELETE',
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-        "ngrok-skip-browser-warning": "69420",
-      }),
-    }).then((res) =>{
-      res.json().then((resp) =>{
-        alert("delete successful")
-      })
-      loadData();
-    })
-    .catch(err => {
-      console.error(err)
-    });
-  }
-  const loadData = async () => {
-    fetch('http://localhost:5000/api/home', {
-      method: "get",
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-        "ngrok-skip-browser-warning": "69420",
-      }),
-    })
-      .then(async (res) =>{
-        return res.json()
-      })
-      .then((receivedData) => setData(receivedData))
-  }
-  console.log(data)
+
+  // const deletePost = (id) =>{
+  //   fetch(`'http://localhost:5000/api/home'${id}`, {
+  //     method: 'DELETE',
+  //     headers: new Headers({
+  //       "Access-Control-Allow-Origin": "*",
+  //       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+  //       "ngrok-skip-browser-warning": "69420",
+  //     }),
+  //   }).then((res) =>{
+  //     res.json().then((resp) =>{
+  //       alert("delete successful")
+  //     })
+  //     loadData();
+  //   })
+  //   .catch(err => {
+  //     console.error(err)
+  //   });
+  // }
+  // const loadData = async () => {
+  //   fetch('http://localhost:5000/api/home', {
+  //     method: "get",
+  //     headers: new Headers({
+  //       "Access-Control-Allow-Origin": "*",
+  //       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+  //       "ngrok-skip-browser-warning": "69420",
+  //     }),
+  //   })
+  //     .then(async (res) =>{
+  //       return res.json()
+  //     })
+  //     .then((receivedData) => setData(receivedData))
+  // }
+  // console.log(data)
+  // useEffect(() => {
+  //   loadData()
+  // }, [])
+
   useEffect(() => {
-    loadData()
-  }, [])
+    async function func() {
+      const src = await getList(wallet, 'LandList')
+      const res = src.map((ss) => parseInt(ss.toString()))
+      var temp = []
+      for (var i = 0; i < res.length; i++) {
+        const tmp = await fetchDataFromDatabase(res[i])
+        temp = [...temp, tmp[0]]
+      }
+      console.log(temp)
+      setData(temp)
+    }
+    if (wallet) {
+      func()
+    }
+  }, [wallet])
 
-  const indexOfFirstPost = currentPage * postPerPage;
-  const indexOfLastPost = indexOfFirstPost + postPerPage;
-  const currentData = data.slice(indexOfFirstPost,indexOfLastPost);
+  const indexOfFirstPost = currentPage * postPerPage
+  const indexOfLastPost = indexOfFirstPost + postPerPage
+  const currentData = data.slice(indexOfFirstPost, indexOfLastPost)
 
-  const pageCount = Math.ceil(data.length / postPerPage);
-  const changePage= ({selected})=>{
-    setCurrentPage(selected);
-  };
-
+  const pageCount = Math.ceil(data.length / postPerPage)
+  const changePage = ({ selected }) => {
+    setCurrentPage(selected)
+  }
 
   return (
     <div className="buy-content">
       <div className="searchBuy">
-        <div className="selectBuy">
+        {/* <div className="selectBuy">
           <select name="Type">
             <option value="Type">Type</option>
             <option value="Rent">Rent</option>
@@ -90,47 +110,55 @@ function Buy() {
             <option value="City">City</option>
             <option value="Da Nang">Da Nang</option>
           </select>
-        </div>
+        </div> */}
       </div>
       <div className="buy">
         <div className="buy-left">
           <Map />
         </div>
-        <div className="buy-right">
-          <div className="right-content">
-            {currentData.map((home,index) => {
-              return (
-                <HomeItem
-                  key={index}
-                  id={home.id}
-                  title={home.information.title} 
-                  price={home.information.price}
-                  priceRent={home.information.priceRent}
-                  address={home.street.address}
-                  wards={home.street.wards}
-                  city={home.street.city}
-                  rooms={home.detail.rooms}
-                  bedrooms={home.detail.bedrooms}
-                  bathrooms={home.detail.bathrooms}
-                  area={home.information.area}
-                  image={home.detail.image[0]}
-                  type={home.information.selectBuy}
-                  path={home.information.path}
-                  deletePost={deletePost}
-                />
-              )
-            })}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flex: '50%'
+        }}>
+          <div className="buy-right">
+            <div className="right-content">
+              {currentData.map((home, index) => {
+                return (
+                  <HomeItem
+                    fform={'buy'}
+                    key={index}
+                    id={home.id}
+                    title={home.information.title}
+                    price={home.information.price}
+                    priceRent={home.information.priceRent}
+                    address={home.street.address}
+                    wards={home.street.wards}
+                    city={home.street.city}
+                    rooms={home.detail.rooms}
+                    bedrooms={home.detail.bedrooms}
+                    bathrooms={home.detail.bathrooms}
+                    area={home.information.area}
+                    image={home.detail.image[0]}
+                    type={home.information.selectBuy}
+                    path={home.information.path}
+                  />
+                )
+              })}
+            </div>
+            <Paginate
+              previousLabel={'Previous'}
+              nextLabel={'Next'}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName="paginationBtn"
+              previousLinkClassName="previousBtn"
+              nextLinkClassName="nextBtn"
+              disabledClassName="paginationDisabled"
+              activeClassName="paginationActive"
+            />
           </div>
-          <Paginate 
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          pageCount={pageCount}
-          onPageChange={changePage}
-          containerClassName="paginationBtn"
-          previousLinkClassName="previousBtn"
-          nextLinkClassName="nextBtn"
-          disabledClassName="paginationDisabled" 
-          activeClassName="paginationActive" />
+
         </div>
       </div>
     </div>

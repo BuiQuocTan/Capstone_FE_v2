@@ -9,7 +9,19 @@ function HomeItem(props) {
   return (
     <div className="homeBuy">
       <p className="type">{props.type}</p>
-      <NavLink to={/buy/+props.path}><div className="img-buy" style={{ backgroundImage: `url(${props.image})` }}></div></NavLink>
+      {props.fform === 'buy' ? (
+        <NavLink to={/buy/ + props.path}>
+          <div className="img-buy" style={{ backgroundImage: `url(${props.image})` }}></div>
+        </NavLink>
+      ) : props.fform === 'rent' ? (
+        <NavLink to={/rent/ + props.path}>
+          <div className="img-buy" style={{ backgroundImage: `url(${props.image})` }}></div>
+        </NavLink>
+      ) : (
+        <NavLink to={/property/ + props.path}>
+          <div className="img-buy" style={{ backgroundImage: `url(${props.image})` }}></div>
+        </NavLink>
+      )}
       <div className="info-buy">
         <h1>{props.title}</h1>
         {props.price > props.priceRent ? <h1>{props.price} &#272;</h1> : <h1>{props.priceRent} &#272;</h1>}
@@ -43,7 +55,7 @@ function HomeItem(props) {
           ) : (
             ''
           )}
-          <button onClick={()=>{props.deletePost(props.id)}}>delete</button>
+          {/* <button onClick={()=>{props.deletePost(props.id)}}>delete</button> */}
         </div>
       </div>
     </div>

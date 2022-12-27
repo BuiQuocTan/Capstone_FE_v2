@@ -14,18 +14,19 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom'
 import DoneIcon from '@mui/icons-material/Done'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectWallet } from '../feature/walletSlice'
-import { buyAction, listRentAction } from '../utils'
+import { buyAction, listRentAction, rentAction, delayAction } from '../utils'
 import InputModal from './inputModal'
+import RentModal from './rentModal'
+import { ethers } from 'ethers'
 
 function PageBuy(props) {
-
   const wallet = useSelector(selectWallet)
-  const dispatch = useDispatch()
 
   const { page } = useParams()
   const [current, setCurrent] = useState(0)
   const [loading, setLoading] = useState(false)
   const [modalShow, setModalShow] = useState(false)
+  const [rentAddShow, setRentAddShow] = useState(false)
   const [rentShow, setRentShow] = useState(false)
   const length = props.image.length
   const nextImg = () => {
@@ -35,13 +36,39 @@ function PageBuy(props) {
   const prevImg = () => {
     setCurrent(current === 0 ? length - 1 : current - 1)
   }
-  
+
   const handleBuy = async (amount) => {
-    const tx = await buyAction(wallet, amount)
+    const tx = await buyAction(wallet, props.nft_id, amount)
+    console.log(tx)
   }
 
-  const handleRent = async (amount) => {
-    const tx = await listRentAction(wallet, 0, )
+  const handleAddRent = async (amount) => {
+    const tx = await listRentAction(wallet, props.nft_id, amount)
+  }
+
+  const handleRent = async (type, from, to) => {
+    console.log(type, from, to)
+    var tx
+    // const initialPrice = ethers.utils.formatEther(props.blockchainData[1]);
+    const initialPrice = parseInt(props.blockchainData[1].toString())
+    console.log(initialPrice)
+    if (type === 'new') {
+      const period = (to - from) / 24 / 60 / 60
+      console.log(Math.ceil(initialPrice / 30))
+      console.log(period)
+      const sendPrice = parseFloat(
+        ethers.utils.formatEther(ethers.BigNumber.from(`${Math.ceil(initialPrice / 30) * period}`)),
+      )
+      console.log(sendPrice.toFixed(18))
+      tx = await rentAction(wallet, props.nft_id, from, to, `${sendPrice.toFixed(18)}`)
+    } else {
+      const period = (to - props.endDate) / 24 / 60 / 60
+      const sendPrice = parseFloat(
+        ethers.utils.formatEther(ethers.BigNumber.from(`${Math.ceil(initialPrice / 30) * period}`)),
+      )
+      console.log(sendPrice)
+      tx = await delayAction(wallet, props.nft_id, to, `${sendPrice.toFixed(18)}`)
+    }
   }
 
   return (
@@ -49,15 +76,15 @@ function PageBuy(props) {
       {page === props.path && (
         <div className="page-left">
           <div className="topPage">
-            <NavLink to="/buy">{props.type}</NavLink>
+            <NavLink to={props.fform === 'buy' ? '/buy' : '/rent'}>{props.type}</NavLink>
             <KeyboardArrowRightIcon />
-            <NavLink to="/buy">{props.kind}</NavLink>
+            <NavLink to={props.fform === 'buy' ? '/buy' : '/rent'}>{props.kind}</NavLink>
             <KeyboardArrowRightIcon />
-            <NavLink to="/buy">{props.city} City</NavLink>
+            <NavLink to={props.fform === 'buy' ? '/buy' : '/rent'}>{props.city} City</NavLink>
             <KeyboardArrowRightIcon />
-            <NavLink to="/buy">{props.ward} Ward</NavLink>
+            <NavLink to={props.fform === 'buy' ? '/buy' : '/rent'}>{props.ward} Ward</NavLink>
             <KeyboardArrowRightIcon />
-            <NavLink to="/buy">{props.address} Street</NavLink>
+            <NavLink to={props.fform === 'buy' ? '/buy' : '/rent'}>{props.address} Street</NavLink>
           </div>
           <div className="imgTop">
             {props.image.map((img, index) => {
@@ -73,7 +100,13 @@ function PageBuy(props) {
               {props.address} Street,{props.ward} Ward,{props.city} City
             </p>
           </div>
-          <h1>{props.price} &#272;</h1>
+          <h1>
+            {props.price} ETH {/*&#272;*/} (
+            {parseFloat((parseFloat(ethers.utils.formatEther(props.balance)) / parseFloat(props.price)) * 100).toFixed(
+              2,
+            )}
+            % Owned)
+          </h1>
           <div className="room-page">
             <div className="detail-rooms">
               <div className="roomPage-item">
@@ -148,7 +181,7 @@ function PageBuy(props) {
               <div class="detailChild">
                 <p>
                   <strong>Price: </strong>
-                  {props.price} &#272;
+                  {props.price} ETH {/*&#272;*/}
                 </p>
               </div>
               <div class="detailChild">
@@ -329,43 +362,57 @@ function PageBuy(props) {
             </div>
           </div>
           <div class="btnPage">
-            <button 
-              className="btn-pageBuy"
-              disabled={loading}
-              onClick={() => {
-                // setLoading(true)
-                // handleRent()
-                setRentShow(true)
-              }}
-            >
-              List to rent Home
-            </button>
-
-            <button 
-              className="btn-pageBuy"
-              disabled={loading}
-              onClick={() => {
-                // setLoading(true)
-                // handleBuy()
-                setModalShow(true)
-              }}
-            >
-              Buy Home
-            </button>
-            {
-              modalShow && <InputModal 
+            {props.fform === 'property' ? (
+              <button
+                className="btn-pageBuy"
+                disabled={loading}
+                onClick={() => {
+                  setRentAddShow(true)
+                }}
+              >
+                List to rent Home
+              </button>
+            ) : props.fform === 'buy' ? (
+              <button
+                className="btn-pageBuy"
+                disabled={loading}
+                onClick={() => {
+                  setModalShow(true)
+                }}
+              >
+                Buy Home
+              </button>
+            ) : (
+              <button
+                className="btn-pageBuy"
+                disabled={loading}
+                onClick={() => {
+                  setRentShow(true)
+                }}
+              >
+                Rent
+              </button>
+            )}
+            {modalShow && (
+              <InputModal
                 closeModal={setModalShow}
                 clickBtn={handleBuy}
                 btnText={'Buy'}
+                additionalText={'You can buy part of the property'}
+                limit={ethers.utils.formatEther(props.blockchainData[2])}
+                percent={parseFloat((props.blockchainData[2] / props.blockchainData[1]) * 100).toFixed(2)}
               />
-            }
-            {
-              rentShow && <InputModal
-                closeModal={setRentShow}
-                clickBtn={handleRent}
+            )}
+            {rentAddShow && (
+              <InputModal
+                closeModal={setRentAddShow}
+                clickBtn={handleAddRent}
                 btnText={'Add to rent list'}
+                additionalText={''}
+                limit={''}
               />
-            }
+            )}
+            {rentShow && <RentModal closeModal={setRentShow} clickBtn={handleRent} btnText={'Confirm'} />}
           </div>
         </div>
       )}

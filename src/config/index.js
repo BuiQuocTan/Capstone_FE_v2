@@ -20,8 +20,8 @@ export const providerOptions = {
 export const contractAddress = {
   1: '',
   56: '',
-  5: '0xe47DdeD1de29eD47d70E7e7106899aF349d43280',
-  97: '0xe47DdeD1de29eD47d70E7e7106899aF349d43280'
+  5: '0xe39c14D4eE39C7b88b20FA24840Cd700728f2DF2',
+  97: '0xaBfbc86dcef56a0e7c20De54aFd7F2104A5b80Da'
 }
 
 export const supported_network = {
@@ -50,3 +50,6 @@ export const supported_network = {
     rpcUrls: ['https://bsc-testnet.public.blastapi.io']
   }
 }
+
+export const datafeed = 'http://localhost:5000/api'
+export const ownerAddress = '0x8672E22E7Ae115844C80D23a7707524cF3Fb363f'
