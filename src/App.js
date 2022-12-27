@@ -16,6 +16,7 @@ import Contact from './page/Contact'
 import Footer from './components/footer'
 import ContentHome from './page/ContentHome'
 import Rent from './page/Rent'
+import Admin from './page/AdminPage'
 
 import WalletProvider from './provider/walletProvider'
 import MyHome from './page/MyHome'
@@ -59,9 +60,10 @@ function App() {
       <Router>
         {!user ? <NavbarSecond /> : <Navbar />}
         <Routes>
-          {user?.email === 'ngocthuandn98@gmail.com' ? (
+          {user?.email === 'ngocthuandn1998@gmail.com' ? (
             <Fragment>
-              <Route path="/" element={<Buy />} />
+              <Route path="/" element={<Admin />} />
+              <Route path="/buy" element={<Buy />} />
             </Fragment>
           ) : (
             <Fragment>
