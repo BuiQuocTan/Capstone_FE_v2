@@ -1,0 +1,40 @@
+.dataHome{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom: 1px solid black;
+    height:14rem;
+}
+
+.dataHome >p:first-child{
+    font-size:2rem;
+    flex:5%;
+    text-align: center;
+    font-weight:bold;
+}
+.dataHome >p:nth-child(2){
+    font-size:1.5rem;
+    flex:30%;
+    text-align: center;
+}
+.dataHome >p:nth-child(3){
+    font-size:1.5rem;
+    flex:15%;
+    text-align: center;
+}
+.dataHome >p:nth-child(5){
+    font-size:1.5rem;
+    flex:15%;
+    text-align:center;
+}
+
+.dataHome >img{
+    height:10rem;
+    flex:33%; 
+}
+.dataHome >svg{
+    font-size:3rem;
+    color:red;
+    flex:7%;
+    text-align:center;
+}
