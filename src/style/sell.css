@@ -1,0 +1,25 @@
+.sell-post{
+    width: 100%;
+    height: auto;
+    background-color: #F7F7F7;
+    margin-top:9rem;
+}
+.sell-container{
+    width: 80%;
+    height: 100%;
+    background-color: #F7F7F7;
+    margin: 0 auto ;
+    padding-top:10rem;
+}
+.Summit{
+    height:5rem;
+    width:20rem;
+    cursor: pointer;
+    border-radius: 0.5rem; 
+    background-color:#377ef9;
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    border:none;
+    margin:2rem auto;
+}

@@ -16,7 +16,7 @@ function ContentSell({postTitle,postDescription,postPrice,postPriceRent,selectHo
       <h1>Real estate price information</h1>
       <div className="select-flex">
         <div className="flex">
-          <label>Enter price (only number)</label>
+          <label>Enter price (only number) (ETH)</label>
           <br />
           <input type="number" name="price" value={postPrice} onChange={handleInput} className="sell-btn" />
         </div>

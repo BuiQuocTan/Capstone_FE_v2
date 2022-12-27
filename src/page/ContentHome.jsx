@@ -1,33 +1,57 @@
 import '../style/contentHome.css'
+import { ethers } from 'ethers'
 import PageBuy from '../components/PageBuy'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selectWallet } from '../feature/walletSlice'
+import { getList, fetchDataFromDatabase, getLandInfo, getUserBalance } from '../utils'
 
 function ContentHome() {
+  const wallet = useSelector(selectWallet)
   const [data, setData] = useState([])
 
   useEffect(() => {
     const loadData = async () => {
-      fetch('http://localhost:5000/api/home', {
-        method: "get",
-        headers: new Headers({
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-          "ngrok-skip-browser-warning": "69420",
-        }),
-      })
-        .then(async (res) =>{
-          return res.json()
-        })
-        .then((receivedData) => setData(receivedData))
+      var type = ''
+      if (window.location.pathname.startsWith('/buy/')) {
+        type = 'LandList'
+      } else if (window.location.pathname.startsWith('/rent/')) {
+        type = 'RentList'
+      } else {
+        type = 'AllList'
+      }
+      const src = await getList(wallet, type)
+      const res = src.map((ss) => parseInt(ss.toString()))
+      var temp = []
+      for (var i = 0; i < res.length; i++) {
+        const rent_price = await getLandInfo(wallet, res[i], type)
+        const balance = await getUserBalance(wallet, res[i])
+
+        const tmp = await fetchDataFromDatabase(res[i])
+        var added = {}
+        added = { ...tmp[0], blockchainData: rent_price, balance: balance }
+        temp = [...temp, added]
+      }
+      setData(temp)
     }
-    loadData()
-  }, [])
+    if (wallet) {
+      loadData()
+    }
+  }, [wallet])
 
   return (
     <div>
-      {data.map((home,index) => (
+      {data.map((home, index) => (
         <PageBuy
+          fform={
+            window.location.pathname.startsWith('/buy/')
+              ? 'buy'
+              : window.location.pathname.startsWith('/rent/')
+              ? 'rent'
+              : 'property'
+          }
           key={index}
+          nft_id={home.nft_id}
           path={home.information.path}
           title={home.information.title}
           type={home.information.selectBuy}
@@ -59,6 +83,8 @@ function ContentHome() {
           elevator={home.utility.Elevator}
           wifi={home.utility.Wifi}
           feature={home.utility}
+          blockchainData={home.blockchainData}
+          balance={home.balance}
         />
       ))}
     </div>

@@ -31,7 +31,7 @@ function Sell() {
   })
   const [selectedImages, setSelectedImages] = useState([])
   const [checkbox, setCheckbox] = useState([])
-  const path = post.title.replace(/[., ]+/g, '-').toLowerCase()
+  const homepath = post.title.replace(/[., ]+/g, '-').toLowerCase()
   //onChange input
   const handleInput = (e) => {
     e.persist()
@@ -66,7 +66,7 @@ function Sell() {
   //submit
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const sell = {
+    var sell = {
       information: {
         title: post.title,
         description: post.description,
@@ -75,7 +75,7 @@ function Sell() {
         selectHome: post.selectHome,
         selectBuy: post.selectBuy,
         area: post.area,
-        path: path,
+        path: homepath,
       },
       street: {
         address: post.address,
@@ -110,8 +110,13 @@ function Sell() {
     
     const ipfs = await IPFS.create()
     const { path, cid } = await ipfs.add(JSON.stringify(sell))
+    console.log(path)
     const tmp = await listLandAction(wallet, path, post.price)
-    if(tmp == true) {
+    if(tmp > -1) {
+      var sell = {
+        ...sell,
+        nft_id: tmp
+      }
       try {
         const res = await fetch('http://localhost:5000/api/home', {
           method: 'POST',
@@ -132,6 +137,7 @@ function Sell() {
 
         console.log(data)
         alert('Post successful!')
+        window.location.href = window.location.origin
       } catch (error) {
         console.log(error)
       }

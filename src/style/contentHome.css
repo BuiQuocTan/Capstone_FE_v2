@@ -183,3 +183,19 @@
   width:15rem;
   height:6rem;
 }
+
+.rent_datepicker {
+  font-size: 18px;
+}
+
+.react-datepicker-ignore-onclickoutside {
+  font-size: 18px !important;
+}
+
+.react-datepicker__input-container input {
+  font-size: 18px !important;
+}
+
+.react-datepicker__triangle {
+  transform: translate(130px, 0px) !important;
+}

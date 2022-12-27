@@ -1,0 +1,37 @@
+.agent{
+    width: 100%;
+    height: auto;
+    background-color: #F7F7F7;
+    margin-top:9rem;
+}
+
+.agent-container{
+    width: 80%;
+    height: 100%;
+    background-color: white;
+    margin: 0 auto ;
+    padding-top:5rem;
+}
+
+.agent-container>h1{
+    font-size: 4rem;
+}
+
+/* Agent components */
+
+.AgentList{
+    width: 100%;
+    height: auto;
+    background-color:#d1e3da;
+    margin-top:2rem;
+    display: flex;
+    border-radius: 1rem;
+}
+.finder >p{
+    font-size: 1.5rem;
+}
+.AgentList > svg{
+    height: auto;
+    width:10rem;
+    color: #0000ff5c;
+}
