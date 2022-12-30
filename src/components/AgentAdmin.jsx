@@ -6,7 +6,6 @@ function AgentAdmin(props) {
   return (
     <div>
       <div className='agentAdmin'>
-        <p>{props.id}</p>
         <p>{props.name}</p>
         <p>{props.phone}</p>
         <p>{props.email}</p>

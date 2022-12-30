@@ -14,6 +14,7 @@ function DataAgent() {
   const [info, setInfo] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [postPerPage] = useState(3)
+  const [search,setSearch] = useState("")
 
   const indexOfFirstPost = currentPage * postPerPage
   const indexOfLastPost = indexOfFirstPost + postPerPage
@@ -42,38 +43,6 @@ function DataAgent() {
     document.addEventListener('keydown', keyPress)
     return () => document.removeEventListener('keydown', keyPress)
   })
-  // const loadData = async () => {
-  //   Promise.all([
-  //     fetch('http://localhost:5000/api/listAgent', {
-  //       method: 'get',
-  //       headers: new Headers({
-  //         'Access-Control-Allow-Origin': '*',
-  //         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-  //         'ngrok-skip-browser-warning': '69420',
-  //       }),
-  //     }),
-  //     fetch('http://localhost:5000/api/home', {
-  //       method: 'get',
-  //       headers: new Headers({
-  //         'Access-Control-Allow-Origin': '*',
-  //         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-  //         'ngrok-skip-browser-warning': '69420',
-  //       }),
-  //     })
-  // ]).then(function (responses) {
-  //     // Get a JSON object from each of the responses
-  //     return Promise.all(responses.map(function (response) {
-  //         return response.json();
-  //     }));
-  // }).then(function (data) {
-  //     // Log the data to the console
-  //     // You would do something with both sets of data here
-  //     setInfo2(data)
-  // }).catch(function (error) {
-  //     // if there's an error, log it
-  //     console.log(error);
-  // });
-  //}
   const loadData = async () =>{
     await getDocs(collection(db, "listAgent"))
             .then((querySnapshot)=>{               
@@ -87,25 +56,27 @@ function DataAgent() {
     loadData()
   }, [])
 
+
   const deletePost = async (id) => {
     const reference = doc(db, 'listAgent',id)
     await deleteDoc(reference)
     .then( alert("Delete Successfull"))
+    .then(loadData())
   }
 
+  console.log(currentInfo)
   return (
     <div>
       <div className='admin-top'>
       <div className="searchAdmin">
-        <input type="text" placeholder="Search..." name="search" />
+        <input type="text" placeholder="Search..." name="search" onChange={(e)=>setSearch(e.target.value)} />
         <SearchIcon />
       </div>
       <div className='add'><AddIcon onClick={()=>{setModalAgent(true)}}/></div>
-      {modalAgent && <Modal closeModal={setModalAgent} />}
+      {modalAgent && <Modal closeModal={setModalAgent} loadData={loadData} />}
       </div>
       <div className="info-homeAdmin">
         <ul className="list-homeAdmin">
-          <li>ID</li>
           <li>Name</li>
           <li>Phone</li>
           <li>Mail</li>
@@ -113,7 +84,7 @@ function DataAgent() {
           <li>Action</li>
         </ul>
         <div>
-          {currentInfo.map((agent, index) => {
+          {currentInfo.filter((agent)=>agent.consultingArea.includes(search)).map((agent, index) => {
             return (
               <AgentAdmin
                 key={index}
