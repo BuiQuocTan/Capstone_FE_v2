@@ -11,7 +11,7 @@ import { providerOptions, supported_network, ownerAddress } from '../config'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { saveInfo, selectWallet } from '../feature/walletSlice'
-import { getReducedAddressString, addListeners } from '../utils'
+import { getReducedAddressString, addListeners, withdrawFunds } from '../utils'
 
 function Navbar() {
   const wallet = useSelector(selectWallet)
@@ -109,6 +109,23 @@ function Navbar() {
           <img src={Logo} alt="logo" />
         </Link>
         <div className="btn">
+          {wallet && wallet.account.toLowerCase() == ownerAddress.toLowerCase() ? (
+            <button
+              className="btn-wallet"
+              style={{
+                marginRight: '10px',
+              }}
+              onClick={() => {
+                if (wallet) {
+                  withdrawFunds(wallet)
+                }
+              }}
+            >
+              Withdraw
+            </button>
+          ) : (
+            <></>
+          )}
           <select
             name="btn-bnb"
             className="btn-bnb"

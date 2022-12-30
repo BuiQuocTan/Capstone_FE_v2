@@ -4,7 +4,8 @@ import PageBuy from '../components/PageBuy'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectWallet } from '../feature/walletSlice'
-import { getList, fetchDataFromDatabase, getLandInfo, getUserBalance } from '../utils'
+import { getList, fetchDataFromDatabase, getLandInfo, getUserBalance, getReward } from '../utils'
+import { ownerAddress } from '../config'
 
 function ContentHome() {
   const wallet = useSelector(selectWallet)
@@ -25,11 +26,19 @@ function ContentHome() {
       var temp = []
       for (var i = 0; i < res.length; i++) {
         const rent_price = await getLandInfo(wallet, res[i], type)
-        const balance = await getUserBalance(wallet, res[i])
+        const reward = await getReward(wallet, res[i])
 
         const tmp = await fetchDataFromDatabase(res[i])
+        // const balance = await getUserBalance(wallet, res[i])
+        var balance 
+        if(wallet.account !== ownerAddress) {
+          balance = await getUserBalance(wallet, res[i])
+        } else {
+          // balance =ethers.utils.parseUnits(tmp[0].information.price.toString(), "ether") - parseInt(rent_price[2].toString())
+          balance = parseInt(rent_price[2].toString())
+        }
         var added = {}
-        added = { ...tmp[0], blockchainData: rent_price, balance: balance }
+        added = { ...tmp[0], blockchainData: rent_price, balance: balance, reward: reward }
         temp = [...temp, added]
       }
       setData(temp)
@@ -85,6 +94,7 @@ function ContentHome() {
           feature={home.utility}
           blockchainData={home.blockchainData}
           balance={home.balance}
+          reward={home.reward}
         />
       ))}
     </div>

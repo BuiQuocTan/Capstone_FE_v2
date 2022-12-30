@@ -18,13 +18,8 @@ const MyHome = () => {
     async function func() {
       var src
       var rents = []
-      if (wallet.account.toLowerCase() === ownerAddress.toLowerCase()) {
-        src = await getList(wallet, 'AllList')
-      } else {
-        src = await getListByUsers(wallet, 'LandList')
-        rents = await getListByUsers(wallet, 'RentList')
-      }
-      console.log(src)
+      src = await getListByUsers(wallet, 'LandList')
+      rents = await getListByUsers(wallet, 'RentList')
       const res = src.map((ss) => parseInt(ss.toString()))
       var temp = []
       for (var i = 0; i < res.length; i++) {
@@ -36,7 +31,14 @@ const MyHome = () => {
         const tmp = await fetchDataFromDatabase(rets[i])
         temp = [...temp, tmp[0]]
       }
-      console.log(temp)
+      if (wallet.account == ownerAddress) {
+        const sales = await getList(wallet, 'LandList')
+        const rets = sales.map((sale) => parseInt(sale.toString()))
+        for (var i = 0; i < rets.length; i++) {
+          const tmp = await fetchDataFromDatabase(rets[i])
+          temp = [...temp, tmp[0]]
+        }
+      }
       setData(temp)
     }
     if (wallet) {

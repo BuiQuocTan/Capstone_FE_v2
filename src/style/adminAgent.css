@@ -6,29 +6,29 @@
   height: 12rem;
 }
 .agentAdmin > p:first-child {
-  font-size: 1.8rem;
-  flex: 30%;
+  font-size: 2rem;
+  flex: 5%;
   text-align: center;
   font-weight: bold;
 }
 .agentAdmin > p:nth-child(2) {
   font-size: 1.8rem;
-  flex: 15%;
+  flex: 30%;
   text-align: center;
 }
 .agentAdmin > p:nth-child(3) {
   font-size: 1.8rem;
-  flex: 28%;
+  flex: 15%;
   text-align: center;
 }
 .agentAdmin > p:nth-child(4) {
   font-size: 1.8rem;
-  flex: 20%;
+  flex: 33%;
   text-align: center;
 }
 .agentAdmin > p:nth-child(5) {
   font-size: 1.8rem;
-  flex: 7%;
+  flex: 15%;
   text-align: center;
 }
 .agentAdmin > svg {

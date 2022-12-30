@@ -76,13 +76,28 @@ export const listRentAction = async (Web3, id, price) => {
   }
 }
 
-export const listLandAction = async (Web3, uri, price) => {
+export const listLandAction = async (Web3, id) => {
   const provider = new ethers.providers.Web3Provider(Web3.provider)
   const signer = provider.getSigner()
 
   const real_estate_contract = new ethers.Contract(contractAddress[Web3.network.chainId], contract_abi, signer)
   try {
-    const tx = await real_estate_contract.addLand(uri, ethers.utils.parseUnits(price, 'ether'))
+    const tx = await real_estate_contract.addLand(id)
+    const receipt = await tx.wait()
+    return receipt
+  } catch (err) {
+    console.log(err)
+    return -1
+  }
+}
+
+export const createLandAction = async (Web3, uri, price) => {
+  const provider = new ethers.providers.Web3Provider(Web3.provider)
+  const signer = provider.getSigner()
+
+  const real_estate_contract = new ethers.Contract(contractAddress[Web3.network.chainId], contract_abi, signer)
+  try {
+    const tx = await real_estate_contract.createLand(uri, ethers.utils.parseUnits(price, 'ether'))
     const receipt = await tx.wait()
     const index = receipt.events[0].data.slice(0, 66)
     return parseInt(index)
@@ -155,6 +170,10 @@ export const getLandInfo = async (Web3, id, type) => {
         tx = await real_estate_contract.getRentInfo(id)
         console.log(tx)
         return tx
+      case 'AllList':
+        tx = await real_estate_contract.getLandInfo(id)
+        console.log(tx)
+        return tx
     }
   } catch (err) {
     console.log(err)
@@ -169,6 +188,20 @@ export const getUserBalance = async (Web3, id) => {
   const real_estate_contract = new ethers.Contract(contractAddress[Web3.network.chainId], contract_abi, signer)
   const tx = await real_estate_contract.getUserBalance(id, Web3.account)
   return tx
+}
+
+export const getReward = async (Web3, id) => {
+  const provider = new ethers.providers.Web3Provider(Web3.provider)
+  const signer = provider.getSigner()
+
+  const real_estate_contract = new ethers.Contract(contractAddress[Web3.network.chainId], contract_abi, signer)
+  try {
+    const tx = await real_estate_contract.calcReward(id, Web3.account)
+    console.log(tx)
+    return tx
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 export const claimReward = async (Web3, id) => {
@@ -196,4 +229,19 @@ export const fetchDataFromDatabase = async (nft_id) => {
   }).then(async (res) => {
     return await res.json()
   })
+}
+
+
+export const withdrawFunds = async (Web3) => {
+   const provider = new ethers.providers.Web3Provider(Web3.provider)
+  const signer = provider.getSigner()
+
+  const real_estate_contract = new ethers.Contract(contractAddress[Web3.network.chainId], contract_abi, signer)
+  try {
+    const tx = await real_estate_contract.withdrawFund()
+    await tx.wait()
+    console.log(tx)
+  } catch (err) {
+    console.log(err)
+  } 
 }

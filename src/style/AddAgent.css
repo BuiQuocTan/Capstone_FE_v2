@@ -1,37 +1,6 @@
-.Add {
-    width: 60%;
-    height: 60%;
+.Add{
+    width: 50%;
+    height: 50%;
     background-color: white;
     z-index: 10;
-    font-size: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color:#254E63;
-  }
-  .Add > h1{
-      font-size: 3rem;
-  }
-  
-  .Add-Content{
-      width: 100%;
-  }
-  .Add-Content >label{
-      padding-left:5rem;
-  }
-  .Add-Content >input{
-      float: right;
-      width: 50%;
-      height: 4rem;
-      margin-right: 2rem;
-      font-size: 2.5rem;
-  }
-  .Add >button{
-      width: 17rem;
-      height: 5rem;
-      background-color:rgb(22 22 225 / 50%);
-      color:white;
-      border-radius: 8px;
-      border: none;
-  }
+}

@@ -52,13 +52,22 @@ const InputModal = ({ closeModal, clickBtn, btnText, additionalText, limit, perc
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
-          <p style={{
-            fontSize: '20px',
-            fontStyle: 'bold',
-            cursor: 'pointer'
-          }} onClick={() => {
-            setAmount(limit)
-          }}>MAX</p>
+          {btnText !== 'Add to rent list' ? (
+            <p
+              style={{
+                fontSize: '20px',
+                fontStyle: 'bold',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                setAmount(limit)
+              }}
+            >
+              MAX
+            </p>
+          ) : (
+            <></>
+          )}
           <button
             style={{
               fontSize: '20px',

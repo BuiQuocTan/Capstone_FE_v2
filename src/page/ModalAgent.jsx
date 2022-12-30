@@ -1,7 +1,7 @@
 import '../style/modalPage.css'
 import AddAgent from '../components/AddAgent'
 
-function ModalAgent({closeModal,loadData}) {
+function ModalAgent({closeModal}) {
 
     const close= ()=>{
         closeModal(false)
@@ -10,7 +10,7 @@ function ModalAgent({closeModal,loadData}) {
   return (
     <div className="bg-modal-page">
         <div onClick={close} className="bg-modal"></div>
-        <AddAgent loadData={loadData} closeModal={closeModal} />
+        <AddAgent />
     </div>
   )
 }

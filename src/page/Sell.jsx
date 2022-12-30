@@ -6,7 +6,7 @@ import Location from '../components/Location'
 import { useParams } from 'react-router-dom'
 import SellIndicator from '../listHome/sellIndicator'
 import { useState } from 'react'
-import { listLandAction } from '../utils'
+import { createLandAction } from '../utils'
 import { useSelector } from 'react-redux'
 import { selectWallet } from '../feature/walletSlice'
 import * as IPFS from 'ipfs-core'
@@ -110,8 +110,7 @@ function Sell() {
     
     const ipfs = await IPFS.create()
     const { path, cid } = await ipfs.add(JSON.stringify(sell))
-    console.log(path)
-    const tmp = await listLandAction(wallet, path, post.price)
+    const tmp = await createLandAction(wallet, path, post.price)
     if(tmp > -1) {
       var sell = {
         ...sell,
@@ -135,7 +134,6 @@ function Sell() {
           return
         }
 
-        console.log(data)
         alert('Post successful!')
         window.location.href = window.location.origin
       } catch (error) {

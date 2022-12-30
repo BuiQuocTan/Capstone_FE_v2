@@ -9,10 +9,11 @@ const RentModal = ({ closeModal, clickBtn, btnText }) => {
   }
 
   var date = new Date()
-  var current_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  var current_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + 'T' + '00:00:00'
 
   const [status, setStatus] = useState('new')
   const [startDate, setStartDate] = useState(new Date(current_date))
+  current_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + 'T' + '23:59:59'
   const [endDate, setEndDate] = useState(new Date(current_date))
 
   const handleStatus = (e) => {
@@ -82,7 +83,17 @@ const RentModal = ({ closeModal, clickBtn, btnText }) => {
             >
               Start Date
             </span>
-            <DatePicker id="startdatepicker" selected={startDate} onChange={(date) => setStartDate(date)} />
+            <DatePicker
+              id="startdatepicker"
+              selected={startDate}
+              onChange={(date) => {
+                var downDate = new Date(date)
+                downDate.setHours(0)
+                downDate.setMinutes(0)
+                downDate.setSeconds(0)
+                setStartDate(downDate)
+              }}
+            />
           </div>
         ) : (
           <></>
@@ -102,7 +113,17 @@ const RentModal = ({ closeModal, clickBtn, btnText }) => {
           >
             {status === 'new' ? 'End Date' : 'To Date'}
           </span>
-          <DatePicker id="enddatepicker" selected={endDate} onChange={(date) => setEndDate(date)} />
+          <DatePicker
+            id="enddatepicker"
+            selected={endDate}
+            onChange={(date) => {
+              var upDate = new Date(date)
+              upDate.setHours(23)
+              upDate.setMinutes(59)
+              upDate.setSeconds(59)
+              setEndDate(upDate)
+            }}
+          />
         </div>
         <div
           style={{

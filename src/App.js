@@ -63,13 +63,15 @@ function App() {
           {user?.email === 'ngocthuandn1998@gmail.com' ? (
             <Fragment>
               <Route path="/" element={<Admin />} />
-              <Route path="/buy" element={<Buy />} />
+              <Route path="/sell/:type" element={<Sell />} />
+              <Route path="/agent" element={<AgentFinder />} />
+              <Route path="/myhome/" element={<MyHome />} />
             </Fragment>
           ) : (
             <Fragment>
               <Route path="/" element={<Home />} />
-              <Route path="/buy" element={<Buy />} />
               <Route path="/rent" element={<Rent />} />
+              <Route path="/buy" element={<Buy />} />
               <Route path="/myhome/" element={<MyHome />} />
               <Route path="/sell/:type" element={<Sell />} />
               <Route path="/agent" element={<AgentFinder />} />

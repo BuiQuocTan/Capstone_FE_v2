@@ -46,7 +46,6 @@ function Buy() {
   //     })
   //     .then((receivedData) => setData(receivedData))
   // }
-  // console.log(data)
   // useEffect(() => {
   //   loadData()
   // }, [])
@@ -60,7 +59,6 @@ function Buy() {
         const tmp = await fetchDataFromDatabase(res[i])
         temp = [...temp, tmp[0]]
       }
-      console.log(temp)
       setData(temp)
     }
     if (wallet) {

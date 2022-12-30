@@ -14,10 +14,11 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom'
 import DoneIcon from '@mui/icons-material/Done'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectWallet } from '../feature/walletSlice'
-import { buyAction, listRentAction, rentAction, delayAction } from '../utils'
+import { buyAction, listRentAction, rentAction, delayAction, claimReward, listLandAction } from '../utils'
 import InputModal from './inputModal'
 import RentModal from './rentModal'
 import { ethers } from 'ethers'
+import { ownerAddress } from '../config'
 
 function PageBuy(props) {
   const wallet = useSelector(selectWallet)
@@ -39,36 +40,37 @@ function PageBuy(props) {
 
   const handleBuy = async (amount) => {
     const tx = await buyAction(wallet, props.nft_id, amount)
-    console.log(tx)
   }
 
   const handleAddRent = async (amount) => {
     const tx = await listRentAction(wallet, props.nft_id, amount)
   }
 
+  const handleAdd = async (id) => {
+    const tx = await listLandAction(wallet, id)
+  }
+
   const handleRent = async (type, from, to) => {
-    console.log(type, from, to)
     var tx
     // const initialPrice = ethers.utils.formatEther(props.blockchainData[1]);
     const initialPrice = parseInt(props.blockchainData[1].toString())
-    console.log(initialPrice)
     if (type === 'new') {
       const period = (to - from) / 24 / 60 / 60
-      console.log(Math.ceil(initialPrice / 30))
-      console.log(period)
       const sendPrice = parseFloat(
-        ethers.utils.formatEther(ethers.BigNumber.from(`${Math.ceil(initialPrice / 30) * period}`)),
+        ethers.utils.formatEther(ethers.BigNumber.from(`${(Math.ceil(initialPrice / 30) * period).toFixed(0)}`)),
       )
-      console.log(sendPrice.toFixed(18))
-      tx = await rentAction(wallet, props.nft_id, from, to, `${sendPrice.toFixed(18)}`)
+      tx = await rentAction(wallet, props.nft_id, from, to, `${sendPrice.toFixed(17)}`)
     } else {
       const period = (to - props.endDate) / 24 / 60 / 60
       const sendPrice = parseFloat(
-        ethers.utils.formatEther(ethers.BigNumber.from(`${Math.ceil(initialPrice / 30) * period}`)),
+        ethers.utils.formatEther(ethers.BigNumber.from(`${(Math.ceil(initialPrice / 30) * period).toFixed(0)}`)),
       )
-      console.log(sendPrice)
-      tx = await delayAction(wallet, props.nft_id, to, `${sendPrice.toFixed(18)}`)
+      tx = await delayAction(wallet, props.nft_id, to, `${sendPrice.toFixed(17)}`)
     }
+  }
+
+  const handleClaimReward = async (id) => {
+    const tx = await claimReward(wallet, id)
   }
 
   return (
@@ -95,7 +97,7 @@ function PageBuy(props) {
           </div>
           <h1>{props.title}</h1>
           <div className="address-buy">
-            <LocationOnIcon />{' '}
+            <LocationOnIcon />
             <p>
               {props.address} Street,{props.ward} Ward,{props.city} City
             </p>
@@ -105,7 +107,8 @@ function PageBuy(props) {
             {parseFloat((parseFloat(ethers.utils.formatEther(props.balance)) / parseFloat(props.price)) * 100).toFixed(
               2,
             )}
-            % Owned)
+            % Owned
+            {props.reward[0] == true ? `, Reward: ${parseFloat(ethers.utils.formatEther(props.reward[1]))} ETH` : ''})
           </h1>
           <div className="room-page">
             <div className="detail-rooms">
@@ -362,7 +365,30 @@ function PageBuy(props) {
             </div>
           </div>
           <div class="btnPage">
-            {props.fform === 'property' ? (
+            {ownerAddress === wallet.account ? (
+              <button
+                className="btn-pageBuy"
+                disabled={loading}
+                onClick={() => {
+                  handleAdd(props.nft_id)
+                }}
+              >
+                List to sell
+              </button>
+            ) : (
+              <></>
+            )}
+            {props.fform === 'property' && props.reward[0] === true ? (
+              <button
+                className="btn-pageBuy"
+                disabled={loading}
+                onClick={() => {
+                  handleClaimReward(props.nft_id)
+                }}
+              >
+                Claim Reward
+              </button>
+            ) : props.fform === 'property' && props.reward[0] === false && props.reward[1].toString() === '0' ? (
               <button
                 className="btn-pageBuy"
                 disabled={loading}
@@ -382,7 +408,7 @@ function PageBuy(props) {
               >
                 Buy Home
               </button>
-            ) : (
+            ) : props.fform === 'rent' && props.reward[0] === false && props.reward[1].toString() !== '1' ? (
               <button
                 className="btn-pageBuy"
                 disabled={loading}
@@ -392,6 +418,8 @@ function PageBuy(props) {
               >
                 Rent
               </button>
+            ) : (
+              <></>
             )}
             {modalShow && (
               <InputModal
