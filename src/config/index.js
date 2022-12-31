@@ -20,7 +20,7 @@ export const providerOptions = {
 export const contractAddress = {
   1: '',
   56: '',
-  5: '0xE23d5662F93eE55171ea7f1BB1937DEF99374d43',
+  5: '0x46faf038A3A04d087D64Ae152467A2cc9639B50c',
   97: '0xaBfbc86dcef56a0e7c20De54aFd7F2104A5b80Da'
 }
 
@@ -52,4 +52,4 @@ export const supported_network = {
 }
 
 export const datafeed = 'http://localhost:5000/api'
-export const ownerAddress = '0xa39f1972D7CF8D745e543CD636F8E81D1FE39199'
+export const ownerAddress = '0x9C6338a3bC53B828dBd524D19F091E38Ec4Bb1b2'

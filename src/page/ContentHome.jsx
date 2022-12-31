@@ -30,12 +30,14 @@ function ContentHome() {
 
         const tmp = await fetchDataFromDatabase(res[i])
         // const balance = await getUserBalance(wallet, res[i])
-        var balance 
-        if(wallet.account !== ownerAddress) {
+        var balance
+        if (wallet.account !== ownerAddress) {
           balance = await getUserBalance(wallet, res[i])
         } else {
-          // balance =ethers.utils.parseUnits(tmp[0].information.price.toString(), "ether") - parseInt(rent_price[2].toString())
-          balance = parseInt(rent_price[2].toString())
+          balance =
+            rent_price[2] == 0
+              ? ethers.utils.parseUnits(tmp[0].information.price.toString(), 'ether')
+              : parseInt(rent_price[2].toString())
         }
         var added = {}
         added = { ...tmp[0], blockchainData: rent_price, balance: balance, reward: reward }

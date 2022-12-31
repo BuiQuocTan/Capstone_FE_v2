@@ -388,7 +388,10 @@ function PageBuy(props) {
               >
                 Claim Reward
               </button>
-            ) : props.fform === 'property' && props.reward[0] === false && props.reward[1].toString() === '0' ? (
+            ) : props.fform === 'property' &&
+              props.reward[0] === false &&
+              props.reward[1].toString() === '0' &&
+              wallet.account !== ownerAddress ? (
               <button
                 className="btn-pageBuy"
                 disabled={loading}

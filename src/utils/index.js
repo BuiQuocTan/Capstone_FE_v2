@@ -1,6 +1,7 @@
 import { ethers } from 'ethers'
 import contract_abi from '../config/abi.json'
 import { contractAddress, datafeed } from '../config'
+import { toast } from 'react-toastify'
 
 export const getReducedAddressString = (address) => {
   let len = address.length
@@ -9,11 +10,13 @@ export const getReducedAddressString = (address) => {
 
 export const addListeners = async (web3ModalProvider) => {
   web3ModalProvider.on('accountsChanged', (accounts) => {
+    toast.success('Account Changed')
     window.location.reload()
   })
 
   // Subscribe to chainId change
   web3ModalProvider.on('chainChanged', (chainId) => {
+    toast.success('Chain Changed')
     window.location.reload()
   })
 }
@@ -27,7 +30,9 @@ export const buyAction = async (Web3, id, amount) => {
     const tx = await real_estate_contract.buyLand(id, { value: ethers.utils.parseUnits(amount, 'ether') })
     await tx.wait()
     console.log(tx)
+    toast.success('Transaction Success')
   } catch (err) {
+    toast.error('Transaction Error')
     console.log(err)
   }
 }
@@ -40,9 +45,11 @@ export const rentAction = async (Web3, id, from, to, amount) => {
   try {
     const tx = await real_estate_contract.rentLand(id, from, to, { value: ethers.utils.parseUnits(amount, 'ether') })
     await tx.wait()
+    toast.success('Transaction Success')
     console.log(tx)
   } catch (err) {
     console.log(err)
+    toast.error('Transaction Error')
   }
 }
 
@@ -55,8 +62,10 @@ export const delayAction = async (Web3, id, to, amount) => {
     const tx = await real_estate_contract.delayRent(id, to, { value: ethers.utils.parseUnits(amount, 'ether') })
     await tx.wait()
     console.log(tx)
+    toast.success('Transaction Success')
   } catch (err) {
     console.log(err)
+    toast.error('Transaction Error')
   }
 }
 
@@ -69,9 +78,11 @@ export const listRentAction = async (Web3, id, price) => {
     const tx = await real_estate_contract.listRent(id, ethers.utils.parseUnits(price, 'ether'))
     await tx.wait()
     console.log(tx)
+    toast.success('Transaction Success')
     return true
   } catch (err) {
     console.log(err)
+    toast.error('Transaction Error')
     return false
   }
 }
@@ -84,8 +95,11 @@ export const listLandAction = async (Web3, id) => {
   try {
     const tx = await real_estate_contract.addLand(id)
     const receipt = await tx.wait()
+    toast.success('Transaction Success')
+
     return receipt
   } catch (err) {
+    toast.error('Transaction Error')
     console.log(err)
     return -1
   }
@@ -100,9 +114,13 @@ export const createLandAction = async (Web3, uri, price) => {
     const tx = await real_estate_contract.createLand(uri, ethers.utils.parseUnits(price, 'ether'))
     const receipt = await tx.wait()
     const index = receipt.events[0].data.slice(0, 66)
+    toast.success('Transaction Success')
+
     return parseInt(index)
   } catch (err) {
     console.log(err)
+    toast.error('Transaction Error')
+
     return -1
   }
 }
@@ -212,8 +230,12 @@ export const claimReward = async (Web3, id) => {
   try {
     const tx = await real_estate_contract.withdrawReward(id)
     await tx.wait()
+    toast.success('Transaction Success')
+
     console.log(tx)
   } catch (err) {
+    toast.error('Transaction Error')
+
     console.log(err)
   }
 }
@@ -231,9 +253,8 @@ export const fetchDataFromDatabase = async (nft_id) => {
   })
 }
 
-
 export const withdrawFunds = async (Web3) => {
-   const provider = new ethers.providers.Web3Provider(Web3.provider)
+  const provider = new ethers.providers.Web3Provider(Web3.provider)
   const signer = provider.getSigner()
 
   const real_estate_contract = new ethers.Contract(contractAddress[Web3.network.chainId], contract_abi, signer)
@@ -243,5 +264,5 @@ export const withdrawFunds = async (Web3) => {
     console.log(tx)
   } catch (err) {
     console.log(err)
-  } 
+  }
 }

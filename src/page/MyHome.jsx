@@ -26,11 +26,13 @@ const MyHome = () => {
         const tmp = await fetchDataFromDatabase(res[i])
         temp = [...temp, tmp[0]]
       }
+      console.log(temp)
       const rets = rents.map((rent) => parseInt(rent.toString()))
       for (var i = 0; i < rets.length; i++) {
         const tmp = await fetchDataFromDatabase(rets[i])
         temp = [...temp, tmp[0]]
       }
+      console.log(temp)
       if (wallet.account == ownerAddress) {
         const sales = await getList(wallet, 'LandList')
         const rets = sales.map((sale) => parseInt(sale.toString()))
@@ -39,6 +41,7 @@ const MyHome = () => {
           temp = [...temp, tmp[0]]
         }
       }
+      console.log(temp)
       setData(temp)
     }
     if (wallet) {

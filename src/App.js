@@ -21,6 +21,9 @@ import Admin from './page/AdminPage'
 import WalletProvider from './provider/walletProvider'
 import MyHome from './page/MyHome'
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 function App() {
   // const user = useSelector(state =>state.user)
   const user = useSelector(selectUser)
@@ -58,6 +61,18 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         {!user ? <NavbarSecond /> : <Navbar />}
         <Routes>
           {user?.email === 'ngocthuandn1998@gmail.com' ? (
@@ -66,6 +81,7 @@ function App() {
               <Route path="/sell/:type" element={<Sell />} />
               <Route path="/agent" element={<AgentFinder />} />
               <Route path="/myhome/" element={<MyHome />} />
+              <Route path="/property/:page" element={<ContentHome />} />
             </Fragment>
           ) : (
             <Fragment>
