@@ -78,7 +78,7 @@ function Buy() {
   return (
     <div className="buy-content">
       <div className="searchBuy">
-        {/* <div className="selectBuy">
+        <div className="selectBuy">
           <select name="Type">
             <option value="Type">Type</option>
             <option value="Rent">Rent</option>
@@ -108,7 +108,7 @@ function Buy() {
             <option value="City">City</option>
             <option value="Da Nang">Da Nang</option>
           </select>
-        </div> */}
+        </div>
       </div>
       <div className="buy">
         <div className="buy-left">

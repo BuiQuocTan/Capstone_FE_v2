@@ -20,7 +20,7 @@ export const providerOptions = {
 export const contractAddress = {
   1: '',
   56: '',
-  5: '0x46faf038A3A04d087D64Ae152467A2cc9639B50c',
+  5: '0xD579f3C67eFB29F7Eb3bE7f45077c58696F335cf',
   97: '0xaBfbc86dcef56a0e7c20De54aFd7F2104A5b80Da'
 }
 
