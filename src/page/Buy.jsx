@@ -14,24 +14,6 @@ function Buy() {
   const [postPerPage] = useState(4)
 
 
-  // const deletePost = (id) =>{
-  //   fetch(`'http://localhost:5000/api/home'${id}`, {
-  //     method: 'DELETE',
-  //     headers: new Headers({
-  //       "Access-Control-Allow-Origin": "*",
-  //       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-  //       "ngrok-skip-browser-warning": "69420",
-  //     }),
-  //   }).then((res) =>{
-  //     res.json().then((resp) =>{
-  //       alert("delete successful")
-  //     })
-  //     loadData();
-  //   })
-  //   .catch(err => {
-  //     console.error(err)
-  //   });
-  // }
   // const loadData = async () => {
   //   fetch('http://localhost:5000/api/home', {
   //     method: "get",

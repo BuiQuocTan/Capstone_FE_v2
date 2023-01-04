@@ -77,7 +77,7 @@ const MyHome = () => {
                 <HomeItem
                   fform={'property'}
                   key={index}
-                  id={home.id}
+                  // id={home.id}
                   title={home.information.title}
                   price={home.information.price}
                   priceRent={home.information.priceRent}

@@ -38,28 +38,9 @@ function Detail(props) {
       <div className="btn-Image">
         <CloudUploadIcon />
         <input type="file" name="images" onChange={props.onSelectFile} multiple accept="image/*" />
+        <button onClick={props.submit}>Upload</button>
       </div>
-      {props.selectedImages.length > 0 &&
-        (props.selectedImages.length > 10 ? (
-          <p className="error">
-            You can't upload more than 10 images! <br />
-            <span>
-              please delete <b> {props.selectedImages.length - 10} </b> of them
-            </span>
-          </p>
-        ) : (
-          <button
-            className="upload-btn"
-            onClick={() => {
-              console.log(props.selectedImages)
-            }}
-          >
-            UPLOAD {props.selectedImages.length} IMAGE
-            {props.selectedImages.length === 1 ? '' : 'S'}
-          </button>
-        ))}
-
-      <div className="images">
+      {/* <div className="images">
         {props.selectedImages &&
           props.selectedImages.map((image, index) => {
             return (
@@ -70,7 +51,7 @@ function Detail(props) {
               </div>
             )
           })}
-      </div>
+      </div> */}
 
       <div className="btnContainer">
         <Link className="btn" to="/sell/location">

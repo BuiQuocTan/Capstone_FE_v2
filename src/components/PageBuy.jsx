@@ -60,13 +60,7 @@ function PageBuy(props) {
         ethers.utils.formatEther(ethers.BigNumber.from(`${(Math.ceil(initialPrice / 30) * period).toFixed(0)}`)),
       )
       tx = await rentAction(wallet, props.nft_id, from, to, `${sendPrice.toFixed(17)}`)
-    } else {
-      const period = (to - props.endDate) / 24 / 60 / 60
-      const sendPrice = parseFloat(
-        ethers.utils.formatEther(ethers.BigNumber.from(`${(Math.ceil(initialPrice / 30) * period).toFixed(0)}`)),
-      )
-      tx = await delayAction(wallet, props.nft_id, to, `${sendPrice.toFixed(17)}`)
-    }
+    } 
   }
 
   const handleClaimReward = async (id) => {
@@ -411,7 +405,7 @@ function PageBuy(props) {
               >
                 Buy Home
               </button>
-            ) : props.fform === 'rent' && props.reward[0] === false && props.reward[1].toString() !== '1' ? (
+            ) : props.fform === 'rent' ? (
               <button
                 className="btn-pageBuy"
                 disabled={loading}
@@ -421,9 +415,9 @@ function PageBuy(props) {
               >
                 Rent
               </button>
-            ) : (
+            )  : (
               <></>
-            )}
+            ) }
             {modalShow && (
               <InputModal
                 closeModal={setModalShow}

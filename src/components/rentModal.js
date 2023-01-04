@@ -8,12 +8,18 @@ const RentModal = ({ closeModal, clickBtn, btnText }) => {
     closeModal(false)
   }
 
-  var date = new Date()
-  var current_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + 'T' + '00:00:00'
+  const addLeadingZeros = (num, totalLength) => {
+    return String(num).padStart(totalLength, '0');
+  }
+
+  var date = new Date(Date.now())
+  console.log(date)
+  var current_date = date.getFullYear() + '-' + addLeadingZeros((date.getMonth() + 1), 2) + '-' + addLeadingZeros(date.getDate(), 2) + 'T' + '00:00:00'
+  console.log(current_date)
 
   const [status, setStatus] = useState('new')
   const [startDate, setStartDate] = useState(new Date(current_date))
-  current_date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + 'T' + '23:59:59'
+  current_date = date.getFullYear() + '-' + addLeadingZeros((date.getMonth() + 2), 2) + '-' + addLeadingZeros(date.getDate(), 2) + 'T' + '23:59:59'
   const [endDate, setEndDate] = useState(new Date(current_date))
 
   const handleStatus = (e) => {
@@ -55,15 +61,6 @@ const RentModal = ({ closeModal, clickBtn, btnText }) => {
             checked={status === 'new'}
           />{' '}
           New
-          <input
-            type={'radio'}
-            value="delay"
-            id="radio_rentDelay"
-            name="radio_rent"
-            onChange={handleStatus}
-            checked={status === 'delay'}
-          />{' '}
-          Delay
         </div>
         {status === 'new' ? (
           <div

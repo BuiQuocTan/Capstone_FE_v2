@@ -10,6 +10,8 @@ import { createLandAction } from '../utils'
 import { useSelector } from 'react-redux'
 import { selectWallet } from '../feature/walletSlice'
 import * as IPFS from 'ipfs-core'
+import { storage } from '../firebase';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 function Sell() {
   const wallet = useSelector(selectWallet)
@@ -29,7 +31,7 @@ function Sell() {
     bedrooms: 0,
     bathrooms: 0,
   })
-  const [selectedImages, setSelectedImages] = useState([])
+  const [selectedImages, setSelectedImages] = useState(null)
   const [checkbox, setCheckbox] = useState([])
   const homepath = post.title.replace(/[., ]+/g, '-').toLowerCase()
   //onChange input
@@ -44,24 +46,34 @@ function Sell() {
   }
 
   //upload image
-  const onSelectFile = (event) => {
-    const selectedFiles = event.target.files
-    const selectedFilesArray = Array.from(selectedFiles)
+  const [file, setFile] = useState('');
+  const [percent, setPercent] = useState(0);
 
-    const imagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file)
-    })
-
-    setSelectedImages((previousImages) => previousImages.concat(imagesArray))
-
-    // FOR BUG IN CHROME
-    event.target.value = ''
+  function handleChange(event) {
+    setFile(event.target.files[0]);
   }
-
-  function deleteHandler(image) {
-    setSelectedImages(selectedImages.filter((e) => e !== image))
-    URL.revokeObjectURL(image)
-  }
+  const submit = () => {
+    if (!file) {
+      alert('Please upload an image first!');
+    }
+    const storageRef = ref(storage, `/files/${file.name}`); // progress can be paused and resumed. It also exposes progress updates. // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100); // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setSelectedImages([url]);
+        });
+      },
+    );
+  };
+  console.log(selectedImages)
 
   //submit
   const handleSubmit = async (e) => {
@@ -164,8 +176,8 @@ function Sell() {
             bedRooms={post.bedrooms}
             bathRooms={post.bathrooms}
             selectedImages={selectedImages}
-            onSelectFile={onSelectFile}
-            deleteHandler={deleteHandler}
+            onSelectFile={handleChange}
+            submit={submit}
           />
         )}
         {type === 'location' && (

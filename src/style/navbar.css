@@ -32,9 +32,9 @@
 
 .menu-list >a {
   color: var(--text-color);
-  padding: 10px;
+  padding: 5px;
   text-decoration: none;
-  margin: 0 2rem;
+  margin: 0 1rem;
   font-size: 2rem;
   border-radius: 5px;
 }
